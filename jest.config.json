@@ -1,0 +1,13 @@
+{
+  "rootDir": "./",
+  "testMatch": [
+  	"**/__tests__/**/*.js?(x)",
+  	"**/?(*.)(spec|test).js?(x)"
+  ],
+  "modulePathIgnorePatterns": [
+  	"/node_modules/",
+  	"/es/",
+  	"/dist/",
+  	"/lib/"
+  ]
+}

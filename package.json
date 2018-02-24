@@ -1,0 +1,66 @@
+{
+  "name": "redux-split-reducer",
+  "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jbradle/redux-splitted-reducer.git"
+  },
+  "keywords": [
+    "ramda",
+    "redux",
+    "reducer",
+    "split reducer"
+  ],
+  "license": "MIT",
+  "description": "Helpful library for splitting reducers on same state level",
+  "main": "lib/index.js",
+  "module": "es/index.js",
+  "files": [
+    "es",
+    "lib",
+    "dist"
+  ],
+  "author": {
+    "name": "Jiri Bradle",
+    "email": "bradle.jiri@gmail.com",
+    "web": "https://github.com/tommmyy"
+  },
+  "scripts": {
+    "test": "yarn lint && yarn test:js",
+    "test:js": "jest --config=./jest.config.json",
+    "test:watch": "yarn test:js -- --watch",
+    "test:coverage": "yarn test:js -- --coverage",
+    "lint": "eslint --ext .js ./",
+    "build:es": "cross-env BABEL_ENV=es babel src --out-dir es",
+    "build:cjs": "cross-env BABEL_ENV=cjs babel src --out-dir lib",
+    "build:umd": "cross-env BABEL_ENV=rollup NODE_ENV=development rollup -c -o dist/redux-split-reducer.js",
+    "build:umd:min": "cross-env BABEL_ENV=rollup NODE_ENV=production rollup -c -o dist/redux-split-reducer.min.js",
+    "build": "yarn build:es && yarn build:cjs && yarn build:umd && yarn build:umd:min",
+    "clean": "rimraf es lib dist"
+  },
+  "peerDependencies": {
+    "ramda": "^0.25.0"
+  },
+  "devDependencies": {
+    "babel-cli": "6.26.0",
+    "babel-core": "6.26.0",
+    "babel-eslint": "6.1.2",
+    "babel-jest": "21.2.0",
+    "babel-plugin-external-helpers": "^6.22.0",
+    "babel-preset-env": "1.6.1",
+    "babel-preset-stage-1": "^6.24.1",
+    "cross-env": "2.0.0",
+    "eslint": "4.13.0",
+    "eslint-plugin-babel": "4.1.2",
+    "eslint-plugin-ramda": "2.3.0",
+    "escope": "3.6.0",
+    "fs-extra": "^4.0.3",
+    "jest": "21.2.1",
+    "ramda": "^0.25.0",
+    "rimraf": "2.5.3",
+    "rollup": "^0.50.0",
+    "rollup-plugin-babel": "^3.0.2",
+    "rollup-plugin-node-resolve": "^3.0.0",
+    "rollup-plugin-uglify": "^2.0.1"
+  }
+}
