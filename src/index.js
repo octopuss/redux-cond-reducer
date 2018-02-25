@@ -27,7 +27,7 @@ const findReducerForAction = (action) => compose(
 	o(when(notNil, reducerP), find(o((condition) => condition(action), conditionP))),
 	filter(hasCondition), values);
 
-const dummyReducer = o(identity, defaultTo({}));
+export const dummyReducer = o(identity, defaultTo({}));
 
 export const typeEq = o(withType, equals);
 export const typeIn = o(withType, anyEquals);
