@@ -1,6 +1,6 @@
 {
   "name": "redux-split-reducer",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "repository": {
     "type": "git",
     "url": "https://github.com/jbradle/redux-splitted-reducer.git"
@@ -9,7 +9,7 @@
     "ramda",
     "redux",
     "reducer",
-    "split reducer"
+    "split"
   ],
   "license": "MIT",
   "description": "Helpful library for splitting reducers on same state level",
@@ -51,10 +51,10 @@
     "babel-preset-env": "1.6.1",
     "babel-preset-stage-1": "^6.24.1",
     "cross-env": "2.0.0",
+    "escope": "3.6.0",
     "eslint": "4.13.0",
     "eslint-plugin-babel": "4.1.2",
     "eslint-plugin-ramda": "2.3.0",
-    "escope": "3.6.0",
     "fs-extra": "^4.0.3",
     "jest": "21.2.1",
     "ramda": "^0.25.0",

@@ -23,8 +23,8 @@ const typeP = prop('type');
 const withType = flip(o)(typeP);
 const anyEquals = o(anyPass, map(equals));
 
-const findReducerForAction = (action) => compose(
-	o(when(notNil, reducerP), find(o((condition) => condition(action), conditionP))),
+const findReducerForAction = (action, state) => compose(
+	o(when(notNil, reducerP), find(o((condition) => condition(action, state), conditionP))),
 	filter(hasCondition), values);
 
 export const dummyReducer = o(identity, defaultTo({}));
@@ -33,6 +33,6 @@ export const typeEq = o(withType, equals);
 export const typeIn = o(withType, anyEquals);
 
 export default (setting) => (state, action) => {
-	const reducer = findReducerForAction(action)(setting);
+	const reducer = findReducerForAction(action, state)(setting);
 	return defaultTo(defaultTo(dummyReducer, setting.defaultReducer))(reducer)(state, action);
 };
