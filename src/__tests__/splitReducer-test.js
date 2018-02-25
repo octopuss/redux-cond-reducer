@@ -1,19 +1,22 @@
-import splitReducer, { typeEquals, typeIn } from '../';
+import splitReducer, { typeEq, typeIn } from '../';
 
 const defaultReducer = jest.fn();
 const otherReducer = jest.fn();
+
+const state = {
+	prop: 'test',
+};
 
 describe('splitReducer', () => {
 	beforeEach(() => {
 		jest.resetAllMocks();
 	});
-
-	describe('typeCondition', () => {
+	describe('typeEq', () => {
 		it('should exist', () => {
-			expect(typeEquals).toBeDefined();
+			expect(typeEq).toBeDefined();
 		});
 		it('should create condition based on action type', () => {
-			const condition = typeEquals('WANTED_ACTION');
+			const condition = typeEq('WANTED_ACTION');
 			expect(condition({ type: 'WANTED_ACTION' })).toBeTruthy();
 			expect(condition({ type: 'TEST_ACTION' })).toBeFalsy();
 		});
@@ -37,22 +40,29 @@ describe('splitReducer', () => {
 			const reducer = splitReducer({
 				defaultReducer,
 			});
-			reducer({}, { type: 'TEST_ACTION' });
-			expect(defaultReducer).toBeCalledWith({}, { type: 'TEST_ACTION' });
+			reducer(state, { type: 'TEST_ACTION' });
+			expect(defaultReducer).toBeCalledWith(state, { type: 'TEST_ACTION' });
 		});
-		it('should create split reducer call by action type', () => {
+		describe('should create split reducer call by action type', () => {
 			const reducer = splitReducer({
 				contractDataReducer: {
-					condition: typeEquals('MERGE_CONTRACT_DATA'),
+					condition: typeEq('WANTED_ACTION'),
 					reducer: otherReducer,
 				},
 				defaultReducer,
 			});
-			reducer({}, { type: 'MERGE_CONTRACT_DATA' });
-			expect(defaultReducer).not.toHaveBeenCalled();
-			expect(otherReducer).toBeCalledWith({}, { type: 'MERGE_CONTRACT_DATA' });
-			reducer({}, { type: 'TEST_ACTION' });
-			expect(defaultReducer).toBeCalledWith({}, { type: 'TEST_ACTION' });
+			it('should not call default reducer when condition pass', () => {
+				reducer(state, { type: 'WANTED_ACTION' });
+				expect(defaultReducer).not.toHaveBeenCalled();
+			});
+			it('should call popper reducer when condition pass', () => {
+				reducer(state, { type: 'WANTED_ACTION' });
+				expect(otherReducer).toBeCalledWith(state, { type: 'WANTED_ACTION' });
+			});
+			it('should call default reducer when condition not pass', () => {
+				reducer(state, { type: 'TEST_ACTION' });
+				expect(defaultReducer).toBeCalledWith(state, { type: 'TEST_ACTION' });
+			});
 		});
 	});
 });
