@@ -1,9 +1,9 @@
-# redux-split-reducer"
+# redux-split-reducer
 [![build status](https://img.shields.io/travis/jbradle/redux-split-reducer/master.svg?style=flat-square)](https://travis-ci.org/jbradle/redux-split-reducer)
 
 Library for more redux friendly configuration of reducers. It aims on splitting reducers on same state branch.
 
-Thanks to this library, you can configure store, without using some boring switches or ifs. But just with conditional functions.
+Thanks to this library, you can configure store, without using some boring switches or ifs. But just with conditional functions. It is based on `cond` function from ramda library.
 
 It contains some type condition functions support. Also dummyReducer implementation, that reduce state without changes and empty object as default state.
 
@@ -30,23 +30,12 @@ const rootReducer = combineReducers({
 	routing: routerReducer,
 	form: combineReducers({
 		globalErrors: globalErrorsReducer,
-		state: splitReducer({
-			formStateReducer: {
-				condition: typeEq('UPDATE_FORM_STATE'),
-				reducer: formStateReducer,
-			},
-			defaultReducer: formReducer('FORM_NAME'),
-		}),
-		contractData: splitReducer({
-        			contractDataReducer: {
-        				condition: typeIn([
-        						'DEEP_MERGE_CONTRACT_DATA',
-        						'ASSOC_CONTRACT_DATA',
-        					]),
-        				reducer: contractDataReducer,
-        			},
-        			defaultReducer: multiFormReducer,
-        		}),
+		state: splitReducer([
+			[typeEq('UPDATE_FORM_STATE'), formStateReducer]
+		], formReducer('FORM_NAME')),
+		contractData: splitReducer([
+			[typeIn(['DEEP_MERGE_CONTRACT_DATA', 'ASSOC_CONTRACT_DATA']), contractDataReducer]
+		], multiFormReducer),
 	}),
 	error: errorReducer,
 });

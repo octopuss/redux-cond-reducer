@@ -1,38 +1,41 @@
 import {
+	always,
 	anyPass,
 	compose,
+	cond,
 	defaultTo,
 	equals,
-	filter,
-	find,
-	flip,
-	has,
 	identity,
 	map,
+	nth,
 	o,
 	prop,
-	values,
-	when,
+	T,
 } from 'ramda';
-import { notNil } from 'ramda-extension';
+import { argumentsToList, notNil } from 'ramda-extension';
 
-const hasCondition = has('condition');
-const conditionP = prop('condition');
-const reducerP = prop('reducer');
-const typeP = prop('type');
-const withType = flip(o)(typeP);
 const anyEquals = o(anyPass, map(equals));
 
-const findReducerForAction = (action, state) => compose(
-	o(when(notNil, reducerP), find(o((condition) => condition(action, state), conditionP))),
-	filter(hasCondition), values);
-
-export const dummyReducer = o(identity, defaultTo({}));
+const withType = (condition) => compose(condition, prop('type'), nth(1), argumentsToList);
 
 export const typeEq = o(withType, equals);
 export const typeIn = o(withType, anyEquals);
 
-export default (setting) => (state, action) => {
-	const reducer = findReducerForAction(action, state)(setting);
-	return defaultTo(defaultTo(dummyReducer, setting.defaultReducer))(reducer)(state, action);
-};
+export const dummyReducer = o(identity, defaultTo({}));
+/**
+ * Split reducer takes a list of [predicate, transformer] pairs and default reducer.
+ * `state` and `action` are applied to each of the predicates in turn
+ * until one returns a "truthy" value, at which point splitReducer returns the result of applying
+ * `state` and `action` to the corresponding reducer.
+ *
+ * When no reducer found it will try to use defaultReducer from second argument or dummyReducer.
+ *
+ * @param configuration {Array} pairs A list of [predicate, reducer]
+ * @param defaultReducer {Function} default reducer (when is nill, use dummyReducer)
+ * @returns {Function} Split reducer
+ */
+export default (configuration, defaultReducer) => cond([
+	...configuration,
+	[always(notNil(defaultReducer)), defaultReducer],
+	[T, dummyReducer],
+]);

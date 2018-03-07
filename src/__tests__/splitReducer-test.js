@@ -17,8 +17,8 @@ describe('splitReducer', () => {
 		});
 		it('should create condition based on action type', () => {
 			const condition = typeEq('WANTED_ACTION');
-			expect(condition({ type: 'WANTED_ACTION' })).toBeTruthy();
-			expect(condition({ type: 'TEST_ACTION' })).toBeFalsy();
+			expect(condition({}, { type: 'WANTED_ACTION' })).toBeTruthy();
+			expect(condition({}, { type: 'TEST_ACTION' })).toBeFalsy();
 		});
 	});
 	describe('typeIn', () => {
@@ -27,9 +27,9 @@ describe('splitReducer', () => {
 		});
 		it('should create condition based on action types', () => {
 			const condition = typeIn(['TEST_ACTION', 'TEST_ACTION_2']);
-			expect(condition({ type: 'TEST_ACTION' })).toBeTruthy();
-			expect(condition({ type: 'TEST_ACTION_2' })).toBeTruthy();
-			expect(condition({ type: 'TEST_ACTION_UNKNOWN' })).toBeFalsy();
+			expect(condition({}, { type: 'TEST_ACTION' })).toBeTruthy();
+			expect(condition({}, { type: 'TEST_ACTION_2' })).toBeTruthy();
+			expect(condition({}, { type: 'TEST_ACTION_UNKNOWN' })).toBeFalsy();
 		});
 	});
 	describe('default', () => {
@@ -37,20 +37,14 @@ describe('splitReducer', () => {
 			expect(splitReducer).toBeDefined();
 		});
 		it('should create split reducer and call default reducer', () => {
-			const reducer = splitReducer({
-				defaultReducer,
-			});
+			const reducer = splitReducer([], defaultReducer);
 			reducer(state, { type: 'TEST_ACTION' });
 			expect(defaultReducer).toBeCalledWith(state, { type: 'TEST_ACTION' });
 		});
 		describe('should create split reducer call by action type', () => {
-			const reducer = splitReducer({
-				contractDataReducer: {
-					condition: typeEq('WANTED_ACTION'),
-					reducer: otherReducer,
-				},
-				defaultReducer,
-			});
+			const reducer = splitReducer([
+				[typeEq('WANTED_ACTION'), otherReducer],
+			], defaultReducer);
 			it('should not call default reducer when condition pass', () => {
 				reducer(state, { type: 'WANTED_ACTION' });
 				expect(defaultReducer).not.toHaveBeenCalled();
