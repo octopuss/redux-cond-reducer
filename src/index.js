@@ -1,27 +1,12 @@
-import {
-	always,
-	anyPass,
-	compose,
-	cond,
-	defaultTo,
-	equals,
-	identity,
-	map,
-	nth,
-	o,
-	prop,
-	T,
-} from 'ramda';
+import { always, compose, cond, contains, defaultTo, equals, flip, nth, o, prop, T } from 'ramda';
 import { argumentsToList, notNil } from 'ramda-extension';
-
-const anyEquals = o(anyPass, map(equals));
 
 const withType = (condition) => compose(condition, prop('type'), nth(1), argumentsToList);
 
 export const typeEq = o(withType, equals);
-export const typeIn = o(withType, anyEquals);
+export const typeIn = o(withType, flip(contains));
 
-export const dummyReducer = o(identity, defaultTo({}));
+export const dummyReducer = defaultTo({});
 /**
  * Split reducer takes a list of [predicate, transformer] pairs and default reducer.
  * `state` and `action` are applied to each of the predicates in turn
