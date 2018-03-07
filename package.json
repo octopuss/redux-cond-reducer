@@ -23,7 +23,7 @@
   "author": {
     "name": "Jiri Bradle",
     "email": "bradle.jiri@gmail.com",
-    "web": "https://github.com/tommmyy"
+    "web": "https://github.com/jbradle"
   },
   "scripts": {
     "test": "yarn lint && yarn test:js",
