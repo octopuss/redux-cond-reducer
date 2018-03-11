@@ -1,3 +1,8 @@
+# 0.1.0
+#### Breaking Changes
+Rename from splitReducer to condReducer
+Add ramda and ramda-extension as dependencies
+
 # 0.0.6
 #### New Feature
 Refactor

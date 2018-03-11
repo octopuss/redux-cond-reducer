@@ -10,7 +10,7 @@ export const dummyReducer = defaultTo({});
 /**
  * Split reducer takes a list of [predicate, transformer] pairs and default reducer.
  * `state` and `action` are applied to each of the predicates in turn
- * until one returns a "truthy" value, at which point splitReducer returns the result of applying
+ * until one returns a "truthy" value, at which point condReducer returns the result of applying
  * `state` and `action` to the corresponding reducer.
  *
  * When no reducer found it will try to use defaultReducer from second argument or dummyReducer.

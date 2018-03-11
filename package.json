@@ -1,14 +1,15 @@
 {
-  "name": "redux-split-reducer",
+  "name": "redux-cond-reducer",
   "version": "0.0.7",
   "repository": {
     "type": "git",
-    "url": "https://github.com/jbradle/redux-splitted-reducer.git"
+    "url": "https://github.com/jbradle/redux-cond-reducer.git"
   },
   "keywords": [
     "ramda",
     "redux",
     "reducer",
+    "cond",
     "split"
   ],
   "license": "MIT",
@@ -33,12 +34,12 @@
     "lint": "eslint --ext .js ./",
     "build:es": "cross-env BABEL_ENV=es babel src --out-dir es",
     "build:cjs": "cross-env BABEL_ENV=cjs babel src --out-dir lib",
-    "build:umd": "cross-env BABEL_ENV=rollup NODE_ENV=development rollup -c -o dist/redux-split-reducer.js",
-    "build:umd:min": "cross-env BABEL_ENV=rollup NODE_ENV=production rollup -c -o dist/redux-split-reducer.min.js",
+    "build:umd": "cross-env BABEL_ENV=rollup NODE_ENV=development rollup -c -o dist/redux-cond-reducer.js",
+    "build:umd:min": "cross-env BABEL_ENV=rollup NODE_ENV=production rollup -c -o dist/redux-cond-cond.min.js",
     "build": "yarn build:es && yarn build:cjs && yarn build:umd && yarn build:umd:min",
     "clean": "rimraf es lib dist"
   },
-  "peerDependencies": {
+  "dependencies": {
     "ramda": "^0.25.0",
     "ramda-extension": "^0.1.1"
   },

@@ -1,4 +1,4 @@
-import splitReducer, { typeEq, typeIn } from '../';
+import condReducer, { typeEq, typeIn } from '../';
 
 const defaultReducer = jest.fn();
 const otherReducer = jest.fn();
@@ -7,7 +7,7 @@ const state = {
 	prop: 'test',
 };
 
-describe('splitReducer', () => {
+describe('condReducer', () => {
 	beforeEach(() => {
 		jest.resetAllMocks();
 	});
@@ -34,15 +34,15 @@ describe('splitReducer', () => {
 	});
 	describe('default', () => {
 		it('should exist', () => {
-			expect(splitReducer).toBeDefined();
+			expect(condReducer).toBeDefined();
 		});
-		it('should create split reducer and call default reducer', () => {
-			const reducer = splitReducer([], defaultReducer);
+		it('should create conditional reducer and call default reducer', () => {
+			const reducer = condReducer([], defaultReducer);
 			reducer(state, { type: 'TEST_ACTION' });
 			expect(defaultReducer).toBeCalledWith(state, { type: 'TEST_ACTION' });
 		});
-		describe('should create split reducer call by action type', () => {
-			const reducer = splitReducer([
+		describe('should create conditional reducer call by action type', () => {
+			const reducer = condReducer([
 				[typeEq('WANTED_ACTION'), otherReducer],
 			], defaultReducer);
 			it('should not call default reducer when condition pass', () => {

@@ -3,8 +3,8 @@ import resolve from 'rollup-plugin-node-resolve';
 import babel from 'rollup-plugin-babel';
 
 const banner = `
-//  redux-split-reducer v${require('./package.json').version}
-//  https://github.com/jbradle/redux-split-reducer
+//  redux-cond-reducer v${require('./package.json').version}
+//  https://github.com/jbradle/redux-cond-reducer
 //  (c) ${new Date().getFullYear()}
 `;
 
@@ -12,11 +12,12 @@ const config = {
 	input: 'src/index.js',
 	output: {
 		format: 'umd',
-		name: 'splitReducer',
+		name: 'condReducer',
 		exports: 'named',
 	},
 	globals: {
 		ramda: 'R',
+		'ramda-extension': 'R_',
 	},
 	banner,
 	plugins: [
@@ -29,7 +30,7 @@ const config = {
 			include: 'src/**',
 		}),
 	],
-	external: ['ramda'],
+	external: ['ramda', 'ramda-extension'],
 };
 
 if (process.env.NODE_ENV === 'production') {
