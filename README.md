@@ -1,5 +1,5 @@
 # redux-cond-reducer
-[![build status](https://img.shields.io/travis/jbradle/redux-split-reducer/master.svg?style=flat-square)](https://travis-ci.org/jbradle/redux-split-reducer)
+[![build status](https://img.shields.io/travis/jbradle/redux-cond-reducer/master.svg?style=flat-square)](https://travis-ci.org/jbradle/redux-cond-reducer)
 
 Library for more redux friendly configuration of reducers. It aims on splitting reducers on same state branch.
 
