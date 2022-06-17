@@ -1,10 +1,10 @@
-import { always, compose, cond, contains, defaultTo, equals, flip, nth, o, prop, T } from 'ramda';
+import { always, compose, cond, includes, defaultTo, equals, flip, nth, o, prop, T } from 'ramda';
 import { argumentsToList, notNil } from 'ramda-extension';
 
 const withType = (condition) => compose(condition, prop('type'), nth(1), argumentsToList);
 
 export const typeEq = o(withType, equals);
-export const typeIn = o(withType, flip(contains));
+export const typeIn = o(withType, flip(includes));
 
 export const dummyReducer = defaultTo({});
 /**

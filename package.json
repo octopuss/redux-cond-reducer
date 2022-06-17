@@ -40,7 +40,7 @@
     "clean": "rimraf es lib dist"
   },
   "dependencies": {
-    "ramda": "^0.25.0",
+    "ramda": "^0.28.0",
     "ramda-extension": "^0.1.1"
   },
   "devDependencies": {
@@ -58,7 +58,7 @@
     "eslint-plugin-ramda": "2.3.0",
     "fs-extra": "^4.0.3",
     "jest": "21.2.1",
-    "ramda": "^0.25.0",
+    "ramda": "^0.28.0",
     "ramda-extension": "^0.1.1",
     "rimraf": "2.5.3",
     "rollup": "^0.50.0",
